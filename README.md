@@ -2,12 +2,11 @@
 
 ## Requirements
 
-Build a RESTful api in .NET Core that can track ping pong games.  This API needs no authentication, and should be simple and intuitive to call.  It also, does not need to
+Build a RESTful api in .NET Core that can track ping pong games.  This API needs no 
+authentication, and should be simple and intuitive to call.  It also, does not need to
 persist data permanently anywhere (though you can do that if you wish).
 
-Have some fun and complete as much as you feel necessary. We understand if you don't meet
-all of the requirements, but the basic requirements that need to be fulfilled
-are as follows:
+The basic requirements are as follows:
 
 -   Build this API with .NET Core 2.x
 -   The following pieces of functionality are required:
@@ -34,7 +33,8 @@ are as follows:
     call to list all games.
 
 ### Stretch requirements
-Here are some additional things you can add if you wish to take this further:
+We also encourage you to have fun with this and put your own stamp on it.  So here are 
+some other things that you can try for "bonus points":
 
 -   Persist the data to disk so it survives a restart of the api (please include everything 
     required to run your application if you do this.)
@@ -47,6 +47,8 @@ Here are some additional things you can add if you wish to take this further:
     -   Bonus points for using docker to compile the application
     -   Bonus points for using Docker/docker compose to start the application so it can be 
         debugged.
+-   Anything else that you can think of that shows us your abilities or makes this fun for 
+    you!
 
 ## Project structure
 
@@ -57,7 +59,7 @@ may save you a little time, as the following has been set up:
      -   `Anow.PingPong.Api` - a skeleton project for the API controllers itself.
 -   `test` - the location for automated test projects
      -   `Anow.PingPong.Api.Test` - a holder location for automated tests for the main API 
-          project.
+          project.  It currently does not have a project in it.
 -   `Anow.PingPong.sln` - a .sln file that references all projects so that one can simply
     call `dotnet` commands from the root of the project (e.g. `dotnet restore` to restore packages, `dotnet build` to recompile things)
 
