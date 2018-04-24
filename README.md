@@ -36,12 +36,13 @@ The basic requirements are as follows:
 We also encourage you to have fun with this and put your own stamp on it.  So here are 
 some other things that you can try for "bonus points":
 
+-   Add support for doubles play (4 people per game).
+-   Add additional endpoints to complete the CRUD (create, read, update, delete) operations
 -   Persist the data to disk so it survives a restart of the api (please include everything 
     required to run your application if you do this.)
 -   Add automated unit tests for your code.  You could also add code coverage
     and cyclomatic complexity checks.
 -   Add API documentation in RAML, Swagger/OpenAPI Spec, or API Blueprint format.
--   Add additional endpoints to complete the CRUD (create, read, update, delete) operations
 -   Add some sort of authentication
 -   Add the correct things to create a Docker container image to run this project.
     -   Bonus points for using docker to compile the application
@@ -63,7 +64,7 @@ may save you a little time, as the following has been set up:
 -   `Anow.PingPong.sln` - a .sln file that references all projects so that one can simply
     call `dotnet` commands from the root of the project (e.g. `dotnet restore` to restore packages, `dotnet build` to recompile things)
 
-If you wish to use this structure the following commands will get you going right after checkout:
+If you wish to use this project the following commands will get you going right after checkout:
 
 ```
 dotnet restore
