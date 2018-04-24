@@ -28,8 +28,10 @@ are as follows:
 -   For simplicity, assume that all players have a unique first name (also assume that this
     name is case-insensitive).
 
--   While data does not need to be persisted to disk, data input from the ability to record
-    a game must come back on a subsequent call to one of the pieces of read functionality if the application is not stopped.
+-   While data does not need to be persisted to disk, data successfully added should be 
+    returned by a subsequent read operation (as long as the application is not stopped).
+    For example, recording a new game should cause that game to come back in a subsequent
+    call to list all games.
 
 ### Stretch requirements
 Here are some additional things you can add if you wish to take this further:
