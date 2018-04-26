@@ -2,8 +2,8 @@ swagger: '2.0'
 
 info:
   version: 1.0.0
-  title: title
-  description: description
+  title: Anow Ping Pong Api
+  description: https://bitbucket.org/antony_magee/anow-ping-pong-api-antony
   termsOfService: terms
   contact:
     name: Antony Magee
@@ -19,7 +19,7 @@ paths:
   /games:
     get:
       summary: Gets all games
-      description: Returns a list of all played games.
+      description: Returns a list of all played games - Ordered by Newest.
       responses:
         200:
           description: A list of all played games
@@ -29,6 +29,8 @@ paths:
               required:
                 - Player1
                 - Player2
+                - Score1
+                - Score2
               properties:
                 Id:
                   type: integer
@@ -47,6 +49,8 @@ paths:
                 Time:
                   type: string
                   format: date-time
+                Winner:
+                  type: string
     post:
       summary: Adds new game to list
       description: Adds all the information for recording a new game
@@ -159,6 +163,8 @@ paths:
                 Time:
                   type: string
                   format: date-time
+                Winner:
+                  type: string
     delete:
       summary: Deletes game by Id
       description: Deletes the game that matches the passed Id
@@ -208,3 +214,5 @@ paths:
                 Time:
                   type: string
                   format: date-time
+                Winner:
+                  type: string
