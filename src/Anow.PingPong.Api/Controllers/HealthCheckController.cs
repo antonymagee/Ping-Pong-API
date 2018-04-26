@@ -8,11 +8,13 @@ using Anow.PingPong.Api.Models;
 
 namespace Anow.PingPong.Api.Controllers
 {
+    
     [Route("api/[controller]")]
     public class GamesController : Controller
-    {
+    { 
         private readonly GameContext _ctx;
 
+        
         public GamesController(GameContext ctx) => _ctx = ctx;
 
         // GET ALL GAMES
@@ -29,6 +31,22 @@ namespace Anow.PingPong.Api.Controllers
                 select m;
 
             return query;
+        }
+
+
+        [HttpGet]
+        [Route("ByUser/{name}")]
+        public IActionResult ByName(string name)
+        {
+            var item = _ctx.Game
+                           .Where(f => f.Player1 == name)
+                           .ToList();
+
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            return new ObjectResult(item);
         }
         // GET BY ID
         // GET api/getGames/5
@@ -107,20 +125,8 @@ namespace Anow.PingPong.Api.Controllers
         }
 
         // GET BY NAME
-        // GET api/getGames/antony
-        [HttpGet("/byName/{name}")]
-        public IActionResult GetByName(string name)
-        {
-            var item = _ctx.Game
-                           .Where(f => f.Player1 == name)
-                           .ToList();
-
-            if (item == null)
-            {
-                return BadRequest();
-            }
-            return new ObjectResult(item);
-        }
+        // GET api/Games/ByUser
+        
     }
 }
 
