@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Anow.PingPong.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anow.PingPong.Api
 {
@@ -23,6 +25,11 @@ namespace Anow.PingPong.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<GameContext>(opt => opt.UseInMemoryDatabase("GameVault"));
+            
+            // Service Created when needed, at initialization
+            services.AddTransient<SeedData>();
+            
             services.AddMvc();
         }
 
@@ -34,7 +41,19 @@ namespace Anow.PingPong.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            //app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseMvc();
+
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var seeder = scope.ServiceProvider.GetService<SeedData>();
+                    seeder.Seed();
+                }
+
+
         }
     }
 }
