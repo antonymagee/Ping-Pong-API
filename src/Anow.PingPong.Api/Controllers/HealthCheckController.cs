@@ -8,13 +8,12 @@ using Anow.PingPong.Api.Models;
 
 namespace Anow.PingPong.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     public class GamesController : Controller
-    { 
+    {
         private readonly GameContext _ctx;
 
-        
         public GamesController(GameContext ctx) => _ctx = ctx;
 
         // GET ALL GAMES
@@ -41,12 +40,16 @@ namespace Anow.PingPong.Api.Controllers
             var item = _ctx.Game
                            .Where(f => f.Player1 == name)
                            .ToList();
+            var query =
+                from m in item
+                orderby m.Time ascending
+                select m;
 
             if (item == null)
             {
                 return BadRequest();
             }
-            return new ObjectResult(item);
+            return new ObjectResult(query);
         }
         // GET BY ID
         // GET api/getGames/5
@@ -72,13 +75,38 @@ namespace Anow.PingPong.Api.Controllers
         {
             if (game == null)
             {
-                throw new ArgumentNullException(nameof(game));
+                return BadRequest();
             }
 
-            _ctx.Game.Add(game);
-            _ctx.SaveChanges();
+            bool gameIdExists = _ctx.Game
+                           .Where(g => g.Id == game.Id)
+                           .ToList().Any();
+         
+            bool isFourPlayer = ((game.Player4 != null) && (game.Player3 != null));
 
-            return CreatedAtRoute("GetGame", new { id = game.Id }, game);
+            if (gameIdExists)
+            {
+                ModelState.AddModelError("Id", "Id alread Exists");
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                if (game.Score1 >= 21 && (game.Score1 - 2 >= game.Score2))
+                {
+                   game.Winner = (isFourPlayer) ? game.Player1 + "," + game.Player2 : game.Player1;
+                }
+                if (game.Score2 >= 21 && (game.Score2 - 2 >= game.Score1))
+                {
+                    game.Winner = (isFourPlayer) ? game.Player3 + "," + game.Player4 : game.Player2;
+                }
+
+                game.Time = DateTime.Now;
+                _ctx.Game.Add(game);
+                _ctx.SaveChanges();
+                return CreatedAtRoute("GetGame", new { id = game.Id }, game);
+            }
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -95,11 +123,20 @@ namespace Anow.PingPong.Api.Controllers
                 return NotFound();
             }
 
+            bool isFourPlayer = ((game.Player4 != null) && (game.Player3 != null));
+
+            if (isFourPlayer){
+              item.Player3 = game.Player3;
+              item.Player4 = game.Player4;
+            }
+
             item.Player1 = game.Player1;
             item.Player2 = game.Player2;
+            
             item.Id = game.Id;
-            item.Player2score = game.Player2score;
-            item.Player1score = game.Player1score;
+            item.Score2 = game.Score2;
+            item.Score1 = game.Score1;
+            item.Winner = game.Winner;
 
             _ctx.Game.Update(item);
             _ctx.SaveChanges();
@@ -124,9 +161,6 @@ namespace Anow.PingPong.Api.Controllers
             return new NoContentResult();
         }
 
-        // GET BY NAME
-        // GET api/Games/ByUser
-        
     }
 }
 

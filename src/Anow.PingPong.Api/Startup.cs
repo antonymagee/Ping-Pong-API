@@ -41,17 +41,16 @@ namespace Anow.PingPong.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseDefaultFiles();
-            app.UseStaticFiles();
-
             app.UseMvc();
 
-
+            if (env.IsDevelopment())
+            {
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var seeder = scope.ServiceProvider.GetService<SeedData>();
                     seeder.Seed();
                 }
+            }
 
 
         }

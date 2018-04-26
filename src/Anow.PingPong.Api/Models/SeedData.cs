@@ -18,11 +18,11 @@ public class SeedData
 
         if (!_ctx.Game.Any())
         {
-            _ctx.Game.Add(new GameObject { Player1 = "antony", Player2 = "james", Player1score = 15, Player2score = 21, Time = masterTime.AddDays(3)});
-            _ctx.Game.Add(new GameObject { Player1 = "dean", Player2 = "greg", Player1score = 21, Player2score = 20, Time = masterTime.AddDays(1)});
-            _ctx.Game.Add(new GameObject { Player1 = "jim", Player2 = "ken", Player1score = 25, Player2score = 23, Time = masterTime.AddDays(19)});
-            _ctx.Game.Add(new GameObject { Player1 = "dalan", Player2 = "chris", Player1score = 2, Player2score = 21, Time = masterTime.AddDays(15)});
-            _ctx.Game.Add(new GameObject { Player1 = "ken", Player2 = "doug", Player1score = 21, Player2score = 15, Time = masterTime.AddDays(9)});
+            _ctx.Game.Add(new GameObject { Player1 = "antony", Player2 = "james", Score1 = 15, Score2 = 21, Time = masterTime.AddDays(3)});
+            _ctx.Game.Add(new GameObject { Player1 = "dean", Player2 = "greg", Score1 = 21, Score2 = 20, Time = masterTime.AddDays(1)});
+            _ctx.Game.Add(new GameObject { Player1 = "jim", Player2 = "ken", Score1 = 25, Score2 = 23, Time = masterTime.AddDays(19)});
+            _ctx.Game.Add(new GameObject { Player1 = "dalan", Player2 = "chris", Score1 = 2, Score2 = 21, Time = masterTime.AddDays(15)});
+            _ctx.Game.Add(new GameObject { Player1 = "ken", Player2 = "doug", Score1 = 21, Score2 = 15, Time = masterTime.AddDays(9)});
             _ctx.SaveChanges();
         }
     }
