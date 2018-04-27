@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Anow.PingPong.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace Anow.PingPong.Api
 {
@@ -29,8 +31,9 @@ namespace Anow.PingPong.Api
             
             // Service Created when needed, at initialization
             services.AddTransient<SeedData>();
-            
             services.AddMvc();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,16 +44,16 @@ namespace Anow.PingPong.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
 
-            if (env.IsDevelopment())
-            {
-                using (var scope = app.ApplicationServices.CreateScope())
+            using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var seeder = scope.ServiceProvider.GetService<SeedData>();
                     seeder.Seed();
                 }
-            }
+
 
 
         }

@@ -18,11 +18,11 @@ namespace Anow.PingPong.Api.Models
         [MinLength(3)]
         public string Player2 { get; set; }
         
-        [StringLength(15)]
+        [StringLength(25)]
         [MinLength(3)]
         public string Player3 { get; set; }
 
-        [StringLength(15)]
+        [StringLength(25)]
         [MinLength(3)]
         public string Player4 { get; set; }
 
